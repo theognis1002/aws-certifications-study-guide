@@ -103,7 +103,7 @@ class ServicesQuiz(ListView):
         return Question.objects.filter(question_type="services").order_by("?")
 
 
-class SupportView(FormView):
+class SupportView(CreateView):
     form_class = SupportForm
     template_name = "content/support.html"
     success_url = reverse_lazy("support")
@@ -112,3 +112,11 @@ class SupportView(FormView):
         context = super().get_context_data(**kwargs)
         context["active_tab"] = "support"
         return context
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            "We have received your support message and will respond as soon as possible.",
+            extra_tags="success",
+        )
+        return super().form_valid(form)
