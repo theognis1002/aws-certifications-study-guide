@@ -100,6 +100,20 @@ class ServicesQuiz(ListView):
         return context
 
     def get_queryset(self):
+        return Question.objects.filter(question_type="services")
+
+
+class FlashCardView(ListView):
+    context_object_name = "services"
+    template_name = "content/flash_card.html"
+    paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_tab"] = "home"
+        return context
+
+    def get_queryset(self):
         return Question.objects.filter(question_type="services").order_by("?")
 
 

@@ -1,0 +1,37 @@
+{% extends "content/base.html" %}
+
+{% block header %}
+    Flash Cards
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-6 col-sm-6 p-0 m-0">
+    {% for service in services %}
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h4>{{ service.answer }}</h4>
+                </div>
+                <div class="flip-card-back">
+                    <h5>{{ service.question }}</h5>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if is_paginated %}
+        <div class="text-center mt-5">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
+
