@@ -15,7 +15,10 @@ class Answer(models.Model):
     answer = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"#{self.pk} - {self.answer}"
+        return self.answer
+
+    class Meta:
+        ordering = ["answer"]
 
 
 class Question(models.Model):

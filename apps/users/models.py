@@ -20,3 +20,17 @@ class User(AbstractUser):
 
     class Meta:
         ordering = ["-is_active"]
+
+
+class Support(models.Model):
+    subject = models.CharField(max_length=255)
+    body = models.TextField()
+    contact = models.EmailField()
+    date_received = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.contact} - {self.subject}"
+
+    class Meta:
+        verbose_name = "Contact messages"
+        verbose_name_plural = "Contact messages"
