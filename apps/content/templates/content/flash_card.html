@@ -12,7 +12,7 @@
 
             {% if page_obj.number == 1 %}
                 <div id="overlay">
-                    <span>Click to Start</span>
+                    {% comment %} <span>Click to Start</span> {% endcomment %}
                 </div>
             {% endif %}
 
@@ -27,8 +27,14 @@
         </div>
     {% endfor %}
 
+    {% if page_obj.number == 1 %}
+        <div class="text-center">
+            <button id="btnStart" class="btn btn-outline-success mt-4 mb-4">Click to Start</button>
+        </div>
+    {% endif %}
+
     {% if is_paginated %}
-        <div class="text-center mt-5">
+        <div class="pagination text-center mt-4">
             {% if page_obj.has_previous %}
                 <a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
             {% endif %}

@@ -10,13 +10,17 @@ $(document).ready(function () {
 		}
 	});
 
-	$("#overlay").click(function () {
+	$("#btnStart").click(function () {
 		$("#overlay").css("display", "none");
 		$(".flip-card-inner").css("display", "block");
+		$("#btnStart").css("display", "none");
+		$(".pagination").css("display", "block");
 	});
 
 	if (firstPage) {
 		$("#overlay").css("display", "block");
 		$(".flip-card-inner").css("display", "none");
+	} else {
+		$(".pagination").css("display", "block");
 	}
 });

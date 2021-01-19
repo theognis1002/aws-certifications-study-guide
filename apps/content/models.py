@@ -28,3 +28,15 @@ class Question(models.Model):
 
     def __str__(self):
         return f"#{self.pk} - {self.question}"
+
+
+class MultipleChoiceQuestion(models.Model):
+    question = models.TextField()
+    choice1 = models.TextField(blank=True, null=True)
+    choice2 = models.TextField(blank=True, null=True)
+    choice3 = models.TextField(blank=True, null=True)
+    choice4 = models.TextField(blank=True, null=True)
+    answers = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"#{self.pk} - {self.question}"
