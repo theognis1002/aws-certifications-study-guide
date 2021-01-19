@@ -66,6 +66,20 @@ class ServicesQuiz(ListView):
         return Service.objects.all()
 
 
+class MultipleChoiceQuiz(ListView):
+    context_object_name = "questions"
+    template_name = "content/multiple_choice_quiz.html"
+    paginate_by = 15
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_tab"] = "multiple-choice-quiz"
+        return context
+
+    def get_queryset(self):
+        return []
+
+
 class FlashCardView(ListView):
     context_object_name = "services"
     template_name = "content/flash_card.html"
@@ -77,15 +91,16 @@ class FlashCardView(ListView):
         return context
 
     def get_queryset(self):
-        return Service.objects.all().order_by("?")
+        return Service.objects.all()
 
 
 def test_route(request):
     with open("data.json") as f:
         data = json.load(f)
 
-    # for row in data:
-    #     Service.objects.create(
-    #         service=row["answer__answer"], description=row["question"]
-    #     )
     return JsonResponse(data, safe=False)
+
+
+# TODO add randomized queryset to django session to allow for pagination
+# TODO add shuffle button to queryset --> shuffle adds new queryset to django session
+# TODO add multiple choice quiz and add data

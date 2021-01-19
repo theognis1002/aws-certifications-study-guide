@@ -141,8 +141,9 @@ body {
 	position: relative;
 }
 
-#overlay span {
+#overlay .text-wrapper {
 	position: absolute;
+	width: 100%;
 	top: 50%;
 	left: 50%;
 	font-size: 25px;

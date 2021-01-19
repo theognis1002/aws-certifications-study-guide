@@ -20,6 +20,9 @@
         <li {% if active_tab == "services-quiz" %}class="active"{% endif %}>
             <a href="{% url 'services-quiz' %}"><span class="fa fa-question-circle mr-3"></span> AWS Services Quiz</a>
         </li>
+        <li {% if active_tab == "multiple-choice-quiz" %}class="active"{% endif %}>
+            <a href="{% url 'multiple-choice-quiz' %}"><span class="fa fa-edit mr-3"></span> AWS Multiple Choice Quiz</a>
+        </li>
         <li {% if active_tab == "flash-cards" %}class="active"{% endif %}>
             <a href="{% url 'flash-cards' %}"><span class="fa fa-bolt mr-4"></span> Flash Cards</a>
         </li>
