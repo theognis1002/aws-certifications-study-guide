@@ -12,9 +12,9 @@
             Question #{{ page_obj.start_index|add:forloop.counter0 }}
         </div>
         <div class="card-body">
-            <p class="card-text">{{ service.question }}</p>
+            <p class="card-text">{{ service.description }}</p>
             <button id="{{ page_obj.start_index|add:forloop.counter0 }}" class="btn btn-primary reveal-answer">Reveal Answer</button>
-            <input type="hidden" class="answer" value="{{ service.answer }}">
+            <input type="hidden" class="answer" value="{{ service.service }}">
         </div>
     </div>
     {% endfor %}

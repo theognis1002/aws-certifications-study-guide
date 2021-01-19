@@ -1,10 +1,13 @@
+import json
+
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import FormView, TemplateView, CreateView, ListView
+from django.views.generic import CreateView, ListView, TemplateView
 
-from .forms import AddQuestionForm
-from .models import Answer, Question
+from .forms import AddServiceForm
+from .models import Service
 from .utils import clean_text
 
 
@@ -26,65 +29,25 @@ class QuizView(TemplateView):
         return context
 
 
-class AddAnswerView(CreateView):
-    model = Answer
-    fields = "__all__"
-    success_url = reverse_lazy("add-answer")
+class AddServiceView(CreateView):
+    model = Service
+    template_name = "content/service_form.html"
+    form_class = AddServiceForm
+    success_url = reverse_lazy("add-service")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["active_tab"] = "add-answer"
-        return context
-
-    def get_initial(self):
-        initial = {"answer_type": "services"}
-        return initial
-
-    def form_valid(self, form):
-        messages.success(
-            self.request, "Answer added successfully!", extra_tags="success"
-        )
-        return super().form_valid(form)
-
-
-class AddQuestionView(FormView):
-    template_name = "content/question_form.html"
-    form_class = AddQuestionForm
-    success_url = reverse_lazy("add-question")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["active_tab"] = "add-question"
+        context["active_tab"] = "add-service"
         return context
 
     def form_valid(self, form):
-        question_type = form.cleaned_data["question_type"]
-        question = form.cleaned_data["question"]
-        answer = form.cleaned_data["answer"]
-        answer_str = form.cleaned_data["answer_str"]
+        service = form.cleaned_data["service"]
+        description = form.cleaned_data["description"]
 
-        question = clean_text(question)
-
-        if question_type == "describe_service" or question_type == "choose_service":
-            answer_type = "services"
-        else:
-            answer_type = question_type
-
-        if len(answer_str) > 0:
-            answer = answer_str
-
-        answer_obj = Answer.objects.filter(answer__icontains=answer)
-        if answer_obj.exists():
-            answer_obj = answer_obj.first()
-        else:
-            answer_obj = Answer.objects.create(answer_type=question_type, answer=answer)
-
-        Question.objects.create(
-            question_type=question_type, question=question, answer=answer_obj
-        )
+        description = clean_text(description)
 
         messages.success(
-            self.request, "Question added successfully!", extra_tags="success"
+            self.request, "New AWS service added successfully!", extra_tags="success"
         )
         return super().form_valid(form)
 
@@ -100,7 +63,7 @@ class ServicesQuiz(ListView):
         return context
 
     def get_queryset(self):
-        return Question.objects.filter(question_type="services")
+        return Service.objects.all()
 
 
 class FlashCardView(ListView):
@@ -114,4 +77,15 @@ class FlashCardView(ListView):
         return context
 
     def get_queryset(self):
-        return Question.objects.filter(question_type="services").order_by("?")
+        return Service.objects.all().order_by("?")
+
+
+def test_route(request):
+    with open("data.json") as f:
+        data = json.load(f)
+
+    # for row in data:
+    #     Service.objects.create(
+    #         service=row["answer__answer"], description=row["question"]
+    #     )
+    return JsonResponse(data, safe=False)

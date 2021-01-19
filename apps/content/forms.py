@@ -1,18 +1,12 @@
 from django import forms
-from .models import Question, Answer, QUESTION_TYPE_CHOICES
+from .models import QUESTION_TYPE_CHOICES, Service
 from users.models import Support
 
 
-class AddQuestionForm(forms.ModelForm):
-    question_type = forms.ChoiceField(
-        choices=QUESTION_TYPE_CHOICES, initial=QUESTION_TYPE_CHOICES[2][0]
-    )
-    answer = forms.ModelChoiceField(Answer.objects.all(), required=False)
-    answer_str = forms.CharField(label="Answer String", required=False)
-
+class AddServiceForm(forms.ModelForm):
     class Meta:
-        model = Question
-        fields = ("question_type", "question", "answer", "answer_str")
+        model = Service
+        fields = ("service", "description")
 
 
 class SupportForm(forms.ModelForm):
