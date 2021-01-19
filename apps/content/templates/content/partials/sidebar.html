@@ -4,7 +4,7 @@
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
         </button>
     </div>
-    <div class="img bg-wrap text-center py-4" style="background-image: url(content/images/bg_1.jpg);">
+    <div class="img bg-wrap text-center py-4">
         <div class="user-logo">
             <div class="img" style="background-image: url({% static 'content/images/aws.png' %});"></div>
             <h3>AWS Certification Quizzes</h3>
@@ -26,8 +26,14 @@
         <li {% if active_tab == "support" %}class="active"{% endif %}>
             <a href="{% url 'support' %}"><span class="fa fa-support mr-3"></span> Support</a>
         </li>
-        <li>
-            <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
-        </li>
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'logout' %}"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{% url 'login' %}"><span class="fa fa-sign-in mr-3"></span> Login / Sign Up</a>
+            </li>
+        {% endif %}
     </ul>
 </nav>

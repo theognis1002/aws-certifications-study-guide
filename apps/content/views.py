@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView, CreateView, ListView
 
-from .forms import AddQuestionForm, SupportForm
+from .forms import AddQuestionForm
 from .models import Answer, Question
 from .utils import clean_text
 
@@ -110,27 +110,8 @@ class FlashCardView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["active_tab"] = "home"
+        context["active_tab"] = "flash-cards"
         return context
 
     def get_queryset(self):
         return Question.objects.filter(question_type="services").order_by("?")
-
-
-class SupportView(CreateView):
-    form_class = SupportForm
-    template_name = "content/support.html"
-    success_url = reverse_lazy("support")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["active_tab"] = "support"
-        return context
-
-    def form_valid(self, form):
-        messages.success(
-            self.request,
-            "We have received your support message and will respond as soon as possible.",
-            extra_tags="success",
-        )
-        return super().form_valid(form)

@@ -6,9 +6,16 @@
 
 {% block content %}
 
-<div class="col-md-6 col-sm-6 p-0 m-0">
+<div class="col-md-6 col-sm-6 p-0 m-0 wrapper">
     {% for service in services %}
         <div class="flip-card">
+
+            {% if page_obj.number == 1 %}
+                <div id="overlay">
+                    <span>Click to Start</span>
+                </div>
+            {% endif %}
+
             <div class="flip-card-inner">
                 <div class="flip-card-front">
                     <h4>{{ service.answer }}</h4>
@@ -35,3 +42,11 @@
 </div>
 {% endblock %}
 
+{% block scripts %}
+    {{ block.super }}
+    {% if page_obj.number == 1 %}
+        <script>const firstPage=true;</script>
+    {% else %}
+        <script>const firstPage=false;</script>
+    {% endif %}
+{% endblock %}
