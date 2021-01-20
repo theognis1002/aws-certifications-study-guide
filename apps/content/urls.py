@@ -23,4 +23,9 @@ urlpatterns = [
         views.add_answers_to_session,
         name="answers",
     ),
+    path(
+        "cloud-practitioner-quiz/user-answers/",
+        views.get_previous_user_answers,
+        name="user-answers",
+    ),
 ]

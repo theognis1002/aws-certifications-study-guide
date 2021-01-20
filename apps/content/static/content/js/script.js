@@ -17,7 +17,9 @@ $(document).ready(function () {
 	}
 	const csrftoken = getCookie("csrftoken");
 
-	$(".reveal-answer").click(function () {
+	$(".reveal-answer").click(function (e) {
+		e.preventDefault();
+
 		if ($(this).hasClass("btn-primary")) {
 			let answer = $(this).siblings(".answer").val();
 			$(this).text(answer);
@@ -59,11 +61,13 @@ $(document).ready(function () {
 			return question.filter((answer) => answer != "");
 		});
 
-		var userAnswers = [];
+		let userAnswers = {};
 		for (i = 0; i < answers.length; i++) {
-			userAnswers.push(answers[i][0]);
+			questionNum = $(".card")[i].id.split("_")[1];
+			answer = answers[i][0] ? answers[i][0] : null;
+			userAnswers[questionNum] = answer;
 		}
-		console.log(userAnswers);
+
 		request = $.ajax({
 			url: "/cloud-practitioner-quiz/answers/",
 			type: "POST",
@@ -79,4 +83,29 @@ $(document).ready(function () {
 			},
 		});
 	});
+
+	function getPreviousUserAnswers() {
+		request = $.ajax({
+			url: "/cloud-practitioner-quiz/user-answers/",
+			type: "GET",
+			headers: {
+				"Content-type": "application/json",
+				"X-CSRFToken": csrftoken,
+			},
+			success: function (data) {
+				const userAnswers = data;
+
+				const questions = $(".card");
+				for (i = 0; i < questions.length; i++) {
+					questionNum = questions[i].id.split("_")[1];
+					let userAnswer = userAnswers[questionNum];
+					$(questions[i])
+						.find(`input[value='${userAnswer}']`)
+						.prop("checked", true);
+				}
+			},
+		});
+	}
+
+	getPreviousUserAnswers();
 });

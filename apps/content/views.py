@@ -96,21 +96,53 @@ class AddMultipleChoiceView(CreateView):
 class MultipleChoiceQuiz(ListView):
     context_object_name = "questions"
     template_name = "content/multiple_choice_quiz.html"
-    paginate_by = 15
+    paginate_by = 25
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["active_tab"] = "multiple-choice-quiz"
+        context["answer_key"] = self.request.session["answer_key"]
         return context
 
     def get_queryset(self):
-        return MultipleChoiceQuestion.objects.all()
+        if self.request.session.get("questions"):
+            queryset = self.request.session["questions"]
+        else:
+            queryset = list(MultipleChoiceQuestion.objects.values().order_by("?"))
+            self.request.session["questions"] = queryset
+
+        self.request.session["answer_key"] = [
+            question["answers"] for question in queryset
+        ]
+        return queryset
 
 
 def add_answers_to_session(request):
     json_response = json.loads(request.body)
     answers = json_response["answers"]
-    return JsonResponse({"data": answers})
+
+    if request.session.get("answers") is None:
+        request.session["answers"] = answers
+        user_answers = answers
+    else:
+        user_answers = request.session["answers"]
+        user_answers.update(answers)
+        request.session["answers"] = user_answers
+
+    return JsonResponse(user_answers)
+
+
+def get_previous_user_answers(request):
+    json_response = request.session
+    answers = json_response["answers"]
+
+    if request.session.get("answers") is None:
+        user_answers = {}
+        request.session["answers"] = user_answers
+    else:
+        user_answers = request.session["answers"]
+
+    return JsonResponse(user_answers)
 
 
 class FlashCardView(ListView):
@@ -128,8 +160,9 @@ class FlashCardView(ListView):
 
 
 def test_route(request):
-    with open("data.json") as f:
-        data = json.load(f)
+    data = request.session["answers"]
+    # with open("data.json") as f:
+    #     data = json.load(f)
 
     return JsonResponse(data, safe=False)
 
