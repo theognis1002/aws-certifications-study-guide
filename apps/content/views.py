@@ -2,9 +2,9 @@ import json
 
 from django.contrib import messages
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView, RedirectView
 
 from .forms import AddMultipleChoiceForm, AddServiceForm
 from .models import MultipleChoiceQuestion, Service
@@ -133,9 +133,6 @@ def add_answers_to_session(request):
 
 
 def get_previous_user_answers(request):
-    json_response = request.session
-    answers = json_response["answers"]
-
     if request.session.get("answers") is None:
         user_answers = {}
         request.session["answers"] = user_answers
@@ -151,8 +148,10 @@ class MultipleChoiceQuizResults(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["active_tab"] = "multiple-choice-quiz"
-        score = self.get_score()
+        score, num_correct, num_questions = self.get_score()
         context["score"] = score
+        context["num_correct"] = num_correct
+        context["num_questions"] = num_questions
 
         if score > 85:
             score_color = "success"
@@ -170,12 +169,19 @@ class MultipleChoiceQuizResults(TemplateView):
 
         num_correct = 0
         for correct_answer, user_answer in zip(answer_key, user_answers.values()):
-            print(correct_answer, user_answer)
             if correct_answer == user_answer:
                 num_correct += 1
 
-        score = (num_correct / len(answer_key)) * 100
-        return score
+        num_questions = len(answer_key)
+        score = (num_correct / num_questions) * 100
+        return score, num_correct, num_questions
+
+
+def retake_test_view(request):
+    for key in list(request.session.keys()):
+        del request.session[key]
+    print("Session cleared!")
+    return redirect(reverse_lazy("multiple-choice-quiz"))
 
 
 class FlashCardView(ListView):
@@ -198,8 +204,3 @@ def test_route(request):
     #     data = json.load(f)
 
     return JsonResponse(data, safe=False)
-
-
-# TODO add randomized queryset to django session to allow for pagination
-# TODO add shuffle button to queryset --> shuffle adds new queryset to django session
-# TODO add multiple choice quiz and add data

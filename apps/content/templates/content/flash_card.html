@@ -33,12 +33,12 @@
 
     {% if page_obj.number == 1 %}
         <div class="text-center">
-            <button id="btnStart" class="btn btn-outline-success mt-4 mb-4">Click to Start</button>
+            <button id="btnStart" class="btn btn-outline-success mt-5 mb-4">Click to Start</button>
         </div>
     {% endif %}
 
     {% if is_paginated %}
-        <div class="pagination text-center mt-4">
+        <div class="pagination text-center mt-5">
             {% if page_obj.has_previous %}
                 <a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
             {% endif %}

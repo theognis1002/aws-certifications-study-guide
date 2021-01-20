@@ -9,8 +9,8 @@
         <div class="card border-{{ score_color }} text-center p-4 mb-3">
             <div class="card-body text-{{ score_color }}">
                 <h5 class="card-title">You scored a <strong>{{ score }}%</strong>!</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-{{ score_color }}">Take Test Again</a>
+                <p class="card-text">You've answered {{ num_correct }} questions out of {{ num_questions }} correctly. To pass the AWS Cloud Practitioner Certification Exam, a 70% or higher is required.</p>
+                <a href="{% url 'retake-test' %}"><button class="btn btn-{{ score_color }}">Retake Test</button></a>
             </div>
         </div>
     </div>
