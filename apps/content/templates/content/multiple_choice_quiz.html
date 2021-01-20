@@ -6,18 +6,49 @@
 {% endblock %}
 
 {% block content %}
-    {% for service in services %}
-    <div class="card mb-5">
+    
+    <form action="">
+    {% for question in questions %}
+    <div id="question_{{ page_obj.start_index|add:forloop.counter0 }}" class="card mb-5">
         <div class="card-header">
             Question #{{ page_obj.start_index|add:forloop.counter0 }}
         </div>
         <div class="card-body">
-            <p class="card-text">{{ service.description }}</p>
-            <button id="{{ page_obj.start_index|add:forloop.counter0 }}" class="btn btn-primary reveal-answer">Reveal Answer</button>
-            <input type="hidden" class="answer" value="{{ service.service }}">
+            <div class="p-2">
+                <h6 class="mb-3 text-dark">{{ question.question }}</h6>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ page_obj.start_index|add:forloop.counter0 }}" id="choice1_{{ page_obj.start_index|add:forloop.counter0 }}" value="A">
+                    <label class="form-check-label" for="choice1_{{ page_obj.start_index|add:forloop.counter0 }}">
+                        <strong>A.</strong> {{ question.choice1 }}
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ page_obj.start_index|add:forloop.counter0 }}" id="choice2_{{ page_obj.start_index|add:forloop.counter0 }}" value="B">
+                    <label class="form-check-label" for="choice2_{{ page_obj.start_index|add:forloop.counter0 }}">
+                        <strong>B.</strong> {{ question.choice2 }}
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ page_obj.start_index|add:forloop.counter0 }}" id="choice3_{{ page_obj.start_index|add:forloop.counter0 }}" value="C">
+                    <label class="form-check-label" for="choice3_{{ page_obj.start_index|add:forloop.counter0 }}">
+                        <strong>C.</strong> {{ question.choice3 }}
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ page_obj.start_index|add:forloop.counter0 }}" id="choice4_{{ page_obj.start_index|add:forloop.counter0 }}" value="D">
+                    <label class="form-check-label" for="choice4_{{ page_obj.start_index|add:forloop.counter0 }}">
+                        <strong>D.</strong> {{ question.choice4 }}
+                    </label>
+                </div>
+            </div>
+            <button id="{{ page_obj.start_index|add:forloop.counter0 }}" class="btn btn-primary reveal-answer mt-2">Reveal Answer</button>
+            <input type="hidden" class="answer" value="{{ question.answers }}">
         </div>
     </div>
     {% endfor %}
+
+    <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
+    </form>
 
     {% if is_paginated %}
         <div class="text-center">

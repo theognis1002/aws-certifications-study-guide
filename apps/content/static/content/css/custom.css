@@ -155,3 +155,7 @@ body {
 .pagination {
 	display: none;
 }
+
+.form-check-input {
+	margin-top: 0.33rem;
+}

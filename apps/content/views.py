@@ -6,8 +6,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, TemplateView
 
-from .forms import AddServiceForm
-from .models import Service
+from .forms import AddMultipleChoiceForm, AddServiceForm
+from .models import MultipleChoiceQuestion, Service
 from .utils import clean_text
 
 
@@ -66,6 +66,33 @@ class ServicesQuiz(ListView):
         return Service.objects.all()
 
 
+class AddMultipleChoiceView(CreateView):
+    model = MultipleChoiceQuestion
+    template_name = "content/multiple_choice_form.html"
+    form_class = AddMultipleChoiceForm
+    success_url = reverse_lazy("add-multiple-choice")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_tab"] = "add-multiple-choice"
+        return context
+
+    def form_valid(self, form):
+        choice1 = form.cleaned_data["choice1"]
+        choice2 = form.cleaned_data["choice2"]
+        choice3 = form.cleaned_data["choice3"]
+        choice4 = form.cleaned_data["choice4"]
+        answers = form.cleaned_data["answers"]
+        question = form.cleaned_data["question"]
+
+        messages.success(
+            self.request,
+            "Multiple choice question added successfully!",
+            extra_tags="success",
+        )
+        return super().form_valid(form)
+
+
 class MultipleChoiceQuiz(ListView):
     context_object_name = "questions"
     template_name = "content/multiple_choice_quiz.html"
@@ -77,7 +104,13 @@ class MultipleChoiceQuiz(ListView):
         return context
 
     def get_queryset(self):
-        return []
+        return MultipleChoiceQuestion.objects.all()
+
+
+def add_answers_to_session(request):
+    json_response = json.loads(request.body)
+    answers = json_response["answers"]
+    return JsonResponse({"data": answers})
 
 
 class FlashCardView(ListView):

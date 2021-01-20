@@ -27,4 +27,4 @@ class MultipleChoiceQuestion(models.Model):
     answers = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"#{self.pk} - {self.question}"
+        return self.question
