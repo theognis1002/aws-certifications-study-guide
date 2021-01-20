@@ -37,8 +37,7 @@ $(document).ready(function () {
 		$(".pagination").css("display", "block");
 	});
 
-	$(".saveAnswers").click(function (e) {
-		// e.preventDefault();
+	function saveAnswers() {
 		let data = $.map($("input:radio"), function (elem) {
 			return $(elem)[0].checked == true ? $(elem).val() : "";
 		});
@@ -82,7 +81,7 @@ $(document).ready(function () {
 				console.log(data);
 			},
 		});
-	});
+	}
 
 	function getPreviousUserAnswers() {
 		request = $.ajax({
@@ -108,4 +107,14 @@ $(document).ready(function () {
 	}
 
 	getPreviousUserAnswers();
+
+	$(".saveAnswers").click(function (e) {
+		saveAnswers();
+		console.log("hi");
+	});
+
+	$("#submitBtn").click(function (e) {
+		// e.preventDefault();
+		saveAnswers();
+	});
 });

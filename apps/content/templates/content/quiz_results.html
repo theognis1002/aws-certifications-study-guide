@@ -1,0 +1,17 @@
+{% extends "content/base.html" %}
+
+{% block header %}
+    Quiz
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-6 col-sm-6 p-0 m-0">
+        <div class="card border-{{ score_color }} text-center p-4 mb-3">
+            <div class="card-body text-{{ score_color }}">
+                <h5 class="card-title">You scored a <strong>{{ score }}%</strong>!</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-{{ score_color }}">Take Test Again</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

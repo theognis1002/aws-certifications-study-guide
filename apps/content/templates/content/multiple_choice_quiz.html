@@ -46,13 +46,15 @@
         </div>
     </div>
     {% endfor %}
-
+    </form>
+    
     {% if page_obj.number == page_obj.paginator.num_pages %}
         <div class="text-center">
-            <button id="submitBtn" type="submit" class="btn btn-success btn-lg saveAnswers mb-4">Submit Answers</button>
+            <a href="{% url 'multiple-choice-quiz-results' %}">
+                <button id="submitBtn" class="btn btn-success btn-lg mb-4">Submit Answers</button>
+            </a>
         </div>
     {% endif %}
-    </form>
 
     {% if is_paginated %}
         <div class="text-center">

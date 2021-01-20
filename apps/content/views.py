@@ -145,6 +145,39 @@ def get_previous_user_answers(request):
     return JsonResponse(user_answers)
 
 
+class MultipleChoiceQuizResults(TemplateView):
+    template_name = "content/quiz_results.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_tab"] = "multiple-choice-quiz"
+        score = self.get_score()
+        context["score"] = score
+
+        if score > 85:
+            score_color = "success"
+        elif score > 70:
+            score_color = "warning"
+        else:
+            score_color = "danger"
+
+        context["score_color"] = score_color
+        return context
+
+    def get_score(self):
+        answer_key = self.request.session["answer_key"]
+        user_answers = self.request.session["answers"]
+
+        num_correct = 0
+        for correct_answer, user_answer in zip(answer_key, user_answers.values()):
+            print(correct_answer, user_answer)
+            if correct_answer == user_answer:
+                num_correct += 1
+
+        score = (num_correct / len(answer_key)) * 100
+        return score
+
+
 class FlashCardView(ListView):
     context_object_name = "services"
     template_name = "content/flash_card.html"

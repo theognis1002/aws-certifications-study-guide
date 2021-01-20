@@ -16,6 +16,11 @@ urlpatterns = [
         views.MultipleChoiceQuiz.as_view(),
         name="multiple-choice-quiz",
     ),
+    path(
+        "mc-quiz-results/",
+        views.MultipleChoiceQuizResults.as_view(),
+        name="multiple-choice-quiz-results",
+    ),
     path("flash-cards/", views.FlashCardView.as_view(), name="flash-cards"),
     path("test/", views.test_route, name="test"),
     path(
