@@ -96,7 +96,7 @@ class AddMultipleChoiceView(CreateView):
 class MultipleChoiceQuiz(ListView):
     context_object_name = "questions"
     template_name = "content/multiple_choice_quiz.html"
-    paginate_by = 25
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

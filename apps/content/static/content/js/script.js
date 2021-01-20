@@ -37,8 +37,8 @@ $(document).ready(function () {
 		$(".pagination").css("display", "block");
 	});
 
-	$("#submitBtn").click(function (e) {
-		e.preventDefault();
+	$(".saveAnswers").click(function (e) {
+		// e.preventDefault();
 		let data = $.map($("input:radio"), function (elem) {
 			return $(elem)[0].checked == true ? $(elem).val() : "";
 		});
