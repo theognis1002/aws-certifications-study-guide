@@ -27,6 +27,11 @@ urlpatterns = [
         name="retake-test",
     ),
     path("flash-cards/", views.FlashCardView.as_view(), name="flash-cards"),
+    path(
+        "flash-cards-redirect/",
+        views.flash_cards_redirect,
+        name="flash-cards-redirect",
+    ),
     path("test/", views.test_route, name="test"),
     path(
         "cloud-practitioner-quiz/answers/",

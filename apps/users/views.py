@@ -28,6 +28,7 @@ class CustomLoginView(FormView):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(self.request, user)
+            self.get_success_msg()
             return super().form_valid(form)
         else:
             messages.error(
@@ -35,6 +36,12 @@ class CustomLoginView(FormView):
                 f"User credentials do not exist. Please double check and try again.",
             )
             return HttpResponseRedirect(reverse_lazy("login"))
+
+    def get_success_msg(self):
+        messages.success(
+            self.request,
+            f"Welcome, {self.request.user.username}!",
+        )
 
 
 class CustomLogoutView(LogoutView):

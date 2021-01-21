@@ -46,6 +46,9 @@
             {% if page_obj.has_next %}
                 <a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
             {% endif %}
+            <a href="{% url 'flash-cards-redirect' %}">
+                <button class="btn btn-outline-danger mb-4">Shuffle<i class="fa fa-lg fa-random ml-2"></i></button
+            ></a>
         </div>
     {% endif %}
 

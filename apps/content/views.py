@@ -2,9 +2,9 @@ import json
 
 from django.contrib import messages
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView, RedirectView
+from django.views.generic import CreateView, ListView, RedirectView, TemplateView
 
 from .forms import AddMultipleChoiceForm, AddServiceForm
 from .models import MultipleChoiceQuestion, Service
@@ -128,7 +128,6 @@ def add_answers_to_session(request):
         user_answers = request.session["answers"]
         user_answers.update(answers)
         request.session["answers"] = user_answers
-
     return JsonResponse(user_answers)
 
 
@@ -195,7 +194,18 @@ class FlashCardView(ListView):
         return context
 
     def get_queryset(self):
-        return Service.objects.all()
+        if self.request.session.get("flash_cards"):
+            queryset = self.request.session["flash_cards"]
+        else:
+            queryset = list(Service.objects.values().order_by("?"))
+            self.request.session["flash_cards"] = queryset
+
+        return queryset
+
+
+def flash_cards_redirect(request):
+    del request.session["flash_cards"]
+    return redirect(f"{reverse_lazy('flash-cards')}?page=2")
 
 
 def test_route(request):

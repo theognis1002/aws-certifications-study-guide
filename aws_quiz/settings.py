@@ -1,6 +1,8 @@
-from pathlib import Path
-import sys
 import os
+import sys
+from pathlib import Path
+
+import django_heroku
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -119,3 +121,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+
+django_heroku.settings(locals())

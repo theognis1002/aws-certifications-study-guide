@@ -78,7 +78,7 @@ $(document).ready(function () {
 				answers: userAnswers,
 			}),
 			success: function (data) {
-				console.log(data);
+				// console.log(data);
 			},
 		});
 	}
@@ -109,12 +109,24 @@ $(document).ready(function () {
 	getPreviousUserAnswers();
 
 	$(".saveAnswers").click(function (e) {
+		e.preventDefault();
 		saveAnswers();
-		console.log("hi");
+
+		var targetUrl =
+			$(location).attr("href").split("?")[0] + $(this).attr("href");
+
+		setTimeout(function () {
+			window.location.href = targetUrl;
+		}, 500);
 	});
 
 	$("#submitBtn").click(function (e) {
-		// e.preventDefault();
+		e.preventDefault();
 		saveAnswers();
+
+		setTimeout(function () {
+			window.location.href =
+				window.location.origin + "/multiple-choice-quiz-results/";
+		}, 500);
 	});
 });
