@@ -77,7 +77,7 @@ WSGI_APPLICATION = "aws_quiz.wsgi.application"
 # }
 DATABASES = {
     "default": {
-        "ENGINE": "mysql.connector.django",
+        "ENGINE": "django.db.backends.mysql",
         "NAME": "m1igug6q2cerfwbc",
         "USER": "rbc6bxafgs7nrox5",
         "PASSWORD": "h4p2i89nkv98fig6",
