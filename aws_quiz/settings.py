@@ -16,9 +16,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = ["radiant-caverns-84612.herokuapp.com", "*", "127.0.0.1"]
+ALLOWED_HOSTS = ["radiant-caverns-84612.herokuapp.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -78,10 +78,10 @@ WSGI_APPLICATION = "aws_quiz.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "m1igug6q2cerfwbc",
-        "USER": "rbc6bxafgs7nrox5",
-        "PASSWORD": "h4p2i89nkv98fig6",
-        "HOST": "z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
         "PORT": 3306,
     }
 }
@@ -130,5 +130,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
 
 django_heroku.settings(locals())
