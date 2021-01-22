@@ -45,6 +45,8 @@
             <input type="hidden" class="answer" value="{{ question.answers }}">
         </div>
     </div>
+    {% empty %}
+        <p class="text-danger">There was an error loading the questions. Please check back later.</p>
     {% endfor %}
     </form>
 
@@ -61,7 +63,7 @@
         </div>
     {% endif %}
     
-    {% if page_obj.number == page_obj.paginator.num_pages %}
+    {% if page_obj.number == page_obj.paginator.num_pages and questions|length > 0 %}
         <div class="text-center">
             <a href="{% url 'multiple-choice-quiz-results' %}">
                 <button id="submitBtn" class="btn btn-success btn-lg mb-4">Submit Answers</button>

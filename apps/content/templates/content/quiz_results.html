@@ -1,17 +1,36 @@
 {% extends "content/base.html" %}
+{% load custom_filters %}
 
 {% block header %}
     Quiz
 {% endblock %}
 
 {% block content %}
-    <div class="col-md-6 col-sm-6 p-0 m-0">
+    <div class="col-md-6 col-sm-6 p-0 m-0 mb-5">
         <div class="card border-{{ score_color }} text-center p-4 mb-3">
-            <div class="card-body text-{{ score_color }}">
+            <div class="card-body">
                 <h5 class="card-title">You scored a <strong>{{ score }}%</strong>!</h5>
                 <p class="card-text">You've answered {{ num_correct }} questions out of {{ num_questions }} correctly. To pass the AWS Cloud Practitioner Certification Exam, a 70% or higher is required.</p>
                 <a href="{% url 'retake-test' %}"><button class="btn btn-{{ score_color }}">Retake Test</button></a>
             </div>
         </div>
     </div>
+    
+    <div class="col-md-12 col-sm-12 p-0 m-0">
+        <h4 class="border-bottom mb-4 pb-2">Answer Key</h4>
+        {% for answer in incorrect_answers %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <p class="mb-0">Question #{{ answer.idx }}</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-secondary mb-3">{{ answer.question }}</p>
+                    <p class="card-subtitle text-success">Correct answer: {{ answer.answers }}</p>
+                    <p class="card-subtitle">Your answer: {{ answer.user_answer }}</p>
+                    <a href="#" class="card-link">Reference Link</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}

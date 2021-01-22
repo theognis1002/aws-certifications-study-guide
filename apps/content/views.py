@@ -108,7 +108,11 @@ class MultipleChoiceQuiz(ListView):
         if self.request.session.get("questions"):
             queryset = self.request.session["questions"]
         else:
-            queryset = list(MultipleChoiceQuestion.objects.values().order_by("?"))
+            queryset = list(
+                MultipleChoiceQuestion.objects.filter(approved=True)
+                .values()
+                .order_by("?")
+            )
             self.request.session["questions"] = queryset
 
         self.request.session["answer_key"] = [
@@ -147,10 +151,11 @@ class MultipleChoiceQuizResults(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["active_tab"] = "multiple-choice-quiz"
-        score, num_correct, num_questions = self.get_score()
+        score, num_correct, num_questions, incorrect_answers = self.get_score()
         context["score"] = score
         context["num_correct"] = num_correct
         context["num_questions"] = num_questions
+        context["incorrect_answers"] = incorrect_answers
 
         if score > 85:
             score_color = "success"
@@ -165,15 +170,22 @@ class MultipleChoiceQuizResults(TemplateView):
     def get_score(self):
         answer_key = self.request.session["answer_key"]
         user_answers = self.request.session["answers"]
+        questions = self.request.session["questions"]
 
+        incorrect_answers = []
         num_correct = 0
-        for correct_answer, user_answer in zip(answer_key, user_answers.values()):
+        for idx, (correct_answer, user_answer, question) in enumerate(
+            zip(answer_key, user_answers.values(), questions), 1
+        ):
             if correct_answer == user_answer:
                 num_correct += 1
+            else:
+                question.update({"idx": idx, "user_answer": user_answer})
+                incorrect_answers.append(question)
 
         num_questions = len(answer_key)
         score = (num_correct / num_questions) * 100
-        return score, num_correct, num_questions
+        return score, num_correct, num_questions, incorrect_answers
 
 
 def retake_test_view(request):
@@ -214,3 +226,8 @@ def test_route(request):
     #     data = json.load(f)
 
     return JsonResponse(data, safe=False)
+
+
+# TODO add admin models - show not-approved questions, etc.
+# TODO add answer text on quiz results
+# TODO link to reference for additional info
