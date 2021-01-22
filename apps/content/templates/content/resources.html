@@ -1,0 +1,22 @@
+{% extends "content/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+    External Resources
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-6 col-sm-6 p-0 m-0">
+        <h6 class="text-secondary border-bottom mb-3 pb-1">Reading Materials</h6>
+        <ul class="mb-5">
+            <li><a target="_blank" href="https://d1.awsstatic.com/whitepapers/aws-overview.pdf">AWS Services Overview Whitepaper</a></li>
+            <li><a target="_blank" href="https://d1.awsstatic.com/whitepapers/aws_pricing_overview.pdf">AWS Pricing Overview Whitepaper</a></li>
+        </ul>
+
+        <h6 class="text-secondary border-bottom mb-3 pb-1">Official Practice Exams</h6>
+        <ul class="mb-5">
+            <li><a target="_blank" href="https://www.aws.training/certification?banner=exam-prep">PSI Practice Exam</a></li>
+            <li><a target="_blank" href="https://www.aws.training/certification?banner=exam-prep">Pearson VUE Practice Exam</a></li>
+        </ul>
+    </div>
+{% endblock %}

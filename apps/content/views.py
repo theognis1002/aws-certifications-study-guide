@@ -220,6 +220,14 @@ def flash_cards_redirect(request):
     return redirect(f"{reverse_lazy('flash-cards')}?page=2")
 
 
+class ResourcesView(TemplateView):
+    template_name = "content/resources.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_tab"] = "resources"
+
+
 def test_route(request):
     data = request.session["answers"]
     # with open("data.json") as f:

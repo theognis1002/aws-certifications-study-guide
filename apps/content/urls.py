@@ -32,6 +32,7 @@ urlpatterns = [
         views.flash_cards_redirect,
         name="flash-cards-redirect",
     ),
+    path("resources/", views.ResourcesView.as_view(), name="resources"),
     path("test/", views.test_route, name="test"),
     path(
         "cloud-practitioner-quiz/answers/",

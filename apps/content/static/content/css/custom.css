@@ -159,3 +159,11 @@ body {
 .form-check-input {
 	margin-top: 0.33rem;
 }
+
+.list-group-item {
+	border: 1px solid #ccc !important;
+}
+
+.list-group-item-action:hover {
+	background: rgba(0, 0, 0, 0.03);
+}
