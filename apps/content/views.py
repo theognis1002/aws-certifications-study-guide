@@ -63,7 +63,12 @@ class ServicesQuiz(ListView):
         return context
 
     def get_queryset(self):
-        return Service.objects.all()
+        if self.request.session.get("services"):
+            queryset = self.request.session["services"]
+        else:
+            queryset = list(Service.objects.values().order_by("?"))
+            self.request.session["services"] = queryset
+        return queryset
 
 
 class AddMultipleChoiceView(CreateView):
@@ -96,7 +101,7 @@ class AddMultipleChoiceView(CreateView):
 class MultipleChoiceQuiz(ListView):
     context_object_name = "questions"
     template_name = "content/multiple_choice_quiz.html"
-    paginate_by = 3
+    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
