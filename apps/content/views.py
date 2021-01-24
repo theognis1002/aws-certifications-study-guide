@@ -219,7 +219,12 @@ class PracticeExamView(ListView):
         context = super().get_context_data(**kwargs)
         context["active_tab"] = "practice-exam"
         context["answer_key"] = self.request.session["answer_key"]
-        context["end_timer"] = self.request.session["end_timer"]
+        if self.request.session.get("end_timer") is None:
+            end_timer = (datetime.utcnow() + timedelta(minutes=65)).isoformat()
+            self.request.session["end_timer"] = end_timer
+        else: 
+            end_timer = self.request.session["end_timer"]
+        context["end_timer"] = end_timer
         return context
 
     def get_queryset(self):
