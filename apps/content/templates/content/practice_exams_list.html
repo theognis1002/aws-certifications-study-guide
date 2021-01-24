@@ -1,0 +1,21 @@
+{% extends "content/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+    Practice Exams
+{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <h5 class="card-header">AWS Cloud Practitioner - Practice Exam</h5>
+
+    <div class="card-body">
+        <p class="card-text mb-1">
+            <span style="font-weight: 600;">Exam Length:</span> <em>65 questions</em><br>
+            <span style="font-weight: 600;">Time Limit:</span> <em>65 minutes</em>
+        </p>
+        <p class="card-text">This practice exam is the exact question and time length of the actual AWS Cloud Pracititioner Certification Exam. Once the test has begun, you will have 65 minutes to complete 65 questions. When you are finished the exam, submit the test to receive your score along with the answer key and additional references .</p>
+        <a id="startExam" href="{% url 'practice-exam' %}" class="btn btn-primary">Begin Exam</a>
+    </div>
+</div>
+{% endblock %}

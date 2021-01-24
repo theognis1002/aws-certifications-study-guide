@@ -1,0 +1,24 @@
+{% extends "content/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+    Practice Quizzes
+{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <h5 class="card-header">AWS Cloud Practitioner - Service Quiz</h5>
+    <div class="card-body">
+        <p class="card-text">A practice quiz to test your knowledge of AWS' vast collection of services and products. There are over 150+ questions to help you hone in on the service terminology and use cases.</p>
+        <a href="{% url 'services-quiz' %}" class="btn btn-primary">Begin Quiz</a>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <h5 class="card-header">AWS Cloud Practitioner - Multiple Choice Quiz</h5>
+    <div class="card-body">
+        <p class="card-text">Real questions that have been seen on previous certification quizzes alongside custom user-submitted questions. A wide range of of topics are covered in this quiz from billing, service description, to security and data compliance.</p>
+        <a href="{% url 'multiple-choice-quiz' %}" class="btn btn-primary">Begin Quiz</a>
+    </div>
+</div>
+{% endblock %}

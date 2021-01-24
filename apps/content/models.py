@@ -25,6 +25,7 @@ class MultipleChoiceQuestion(models.Model):
     choice3 = models.TextField(blank=True, null=True)
     choice4 = models.TextField(blank=True, null=True)
     answers = models.CharField(max_length=255)
+    reference = models.TextField(blank=True, null=True)
     approved = models.BooleanField(default=False)
 
     def __str__(self):

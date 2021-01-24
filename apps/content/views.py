@@ -21,12 +21,12 @@ class HomeView(TemplateView):
         return context
 
 
-class QuizView(TemplateView):
-    template_name = "content/quiz.html"
+class PracticeQuizStartView(TemplateView):
+    template_name = "content/practice_quiz_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["active_tab"] = "home"
+        context["active_tab"] = "quiz-list"
         return context
 
 
@@ -202,7 +202,7 @@ def retake_test_view(request):
 
 
 class PracticeExamStartView(TemplateView):
-    template_name = "content/practice_exam_start.html"
+    template_name = "content/practice_exams_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
