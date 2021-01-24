@@ -32,8 +32,23 @@ urlpatterns = [
         views.flash_cards_redirect,
         name="flash-cards-redirect",
     ),
+    path(
+        "practice-exam/start",
+        views.PracticeExamStartView.as_view(),
+        name="practice-exam-start",
+    ),
+    path(
+        "end-timer/",
+        views.end_timer,
+        name="end-timer",
+    ),
+    path(
+        "practice-exam/",
+        views.PracticeExamView.as_view(),
+        name="practice-exam",
+    ),
     path("resources/", views.ResourcesView.as_view(), name="resources"),
-    path("test/", views.test_route, name="test"),
+    path("clear/", views.test_route, name="clear"),
     path(
         "cloud-practitioner-quiz/answers/",
         views.add_answers_to_session,

@@ -170,3 +170,13 @@ body {
 .list-group-item-action:hover {
 	background: rgba(0, 0, 0, 0.03);
 }
+
+.timeClockWrapper {
+	position: fixed;
+	top: 5px;
+	right: 5px;
+	width: 115px;
+	padding: 10px;
+	cursor: initial !important;
+	z-index: 999;
+}

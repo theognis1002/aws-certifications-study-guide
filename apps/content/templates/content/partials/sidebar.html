@@ -5,10 +5,12 @@
         </button>
     </div>
     <div class="img bg-wrap text-center py-4">
+        <a href="{% url 'home' %}">
         <div class="user-logo">
             <div class="img" style="background-image: url({% static 'content/images/aws.png' %});"></div>
             <h3>AWS Certification Quizzes</h3>
         </div>
+        </a>
     </div>
     <ul class="list-unstyled components mb-5">
         <li {% if active_tab == "home" %}class="active"{% endif %}>
@@ -21,7 +23,10 @@
             <a href="{% url 'services-quiz' %}"><span class="fa fa-question-circle mr-3"></span> AWS Services Quiz</a>
         </li>
         <li {% if active_tab == "multiple-choice-quiz" %}class="active"{% endif %}>
-            <a href="{% url 'multiple-choice-quiz' %}"><span class="fa fa-edit mr-3"></span> AWS Multiple Choice Quiz</a>
+            <a href="{% url 'multiple-choice-quiz' %}"><span class="fa fa-list mr-3"></span> AWS Multiple Choice Quiz</a>
+        </li>
+        <li {% if active_tab == "practice-exam" %}class="active"{% endif %}>
+            <a href="{% url 'practice-exam-start' %}"><span class="fa fa-edit mr-3"></span> AWS Practice Exam</a>
         </li>
         <li {% if active_tab == "flash-cards" %}class="active"{% endif %}>
             <a href="{% url 'flash-cards' %}"><span class="fa fa-bolt mr-4"></span> Flash Cards</a>

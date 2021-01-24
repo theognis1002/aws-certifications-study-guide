@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timedelta
 
 from django.contrib import messages
 from django.http import JsonResponse
@@ -200,6 +201,50 @@ def retake_test_view(request):
     return redirect(reverse_lazy("multiple-choice-quiz"))
 
 
+class PracticeExamStartView(TemplateView):
+    template_name = "content/practice_exam_start.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_tab"] = "practice-exam"
+        return context
+
+
+class PracticeExamView(ListView):
+    context_object_name = "questions"
+    template_name = "content/practice_exam.html"
+    paginate_by = 15
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_tab"] = "practice-exam"
+        context["answer_key"] = self.request.session["answer_key"]
+        context["end_timer"] = self.request.session["end_timer"]
+        return context
+
+    def get_queryset(self):
+        if self.request.session.get("questions"):
+            queryset = self.request.session["questions"]
+        else:
+            queryset = list(
+                MultipleChoiceQuestion.objects.filter(approved=True)
+                .values()
+                .order_by("?")[:65]
+            )
+            self.request.session["questions"] = queryset
+
+        self.request.session["answer_key"] = [
+            question["answers"] for question in queryset
+        ]
+        return queryset
+
+
+def end_timer(request):
+    end_time = (datetime.utcnow() + timedelta(minutes=65)).isoformat()
+    request.session["end_timer"] = end_time
+    return JsonResponse({"time": end_time})
+
+
 class FlashCardView(ListView):
     context_object_name = "services"
     template_name = "content/flash_card.html"
@@ -234,11 +279,8 @@ class ResourcesView(TemplateView):
 
 
 def test_route(request):
-    data = request.session["answers"]
-    # with open("data.json") as f:
-    #     data = json.load(f)
-
-    return JsonResponse(data, safe=False)
+    request.session.clear()
+    return JsonResponse({"message": "Session cleared!"})
 
 
 # TODO add admin models - show not-approved questions, etc.

@@ -10701,7 +10701,7 @@ h5,
 	margin-left: -300px;
 }
 #sidebar.active .custom-menu {
-	margin-right: -50px;
+	/* margin-right: -50px; */
 }
 #sidebar.active .btn.btn-primary:before {
 	content: "\f054";
@@ -10777,7 +10777,7 @@ h5,
 		margin-left: 0;
 	}
 	#sidebar .custom-menu {
-		margin-right: -60px !important;
+		/* margin-right: -60px !important; */
 		top: 10px !important;
 	}
 }

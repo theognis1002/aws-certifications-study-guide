@@ -129,4 +129,24 @@ $(document).ready(function () {
 				window.location.origin + "/multiple-choice-quiz-results/";
 		}, 500);
 	});
+
+	$("#startExam").click(function (e) {
+		e.preventDefault();
+
+		request = $.ajax({
+			url: "/end-timer/",
+			type: "POST",
+			headers: {
+				"Content-type": "application/json",
+				"X-CSRFToken": csrftoken,
+			},
+			success: function (data) {
+				console.log(data);
+			},
+		});
+
+		setTimeout(function () {
+			window.location.href = window.location.origin + "/practice-exam/";
+		}, 500);
+	});
 });

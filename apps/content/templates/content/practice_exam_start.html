@@ -1,0 +1,19 @@
+{% extends "content/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+    AWS Cloud Practitioner Practice Exam
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        AWS Cloud Practitioner Practice Exam
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Practice Exam - 65 Questions</h5>
+        <p class="card-text">Once the test has begun, you will have 65 minutes to complete 65 questions. When you are finished the exam, submit the test to receive your score.</p>
+        <a id="startExam" href="{% url 'practice-exam' %}" class="btn btn-primary">Begin Exam</a>
+    </div>
+</div>
+{% endblock %}
