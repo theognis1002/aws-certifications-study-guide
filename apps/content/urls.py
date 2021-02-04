@@ -7,9 +7,9 @@ urlpatterns = [
     path("add-service/", views.AddServiceView.as_view(), name="add-service"),
     path("services-quiz/", views.ServicesQuiz.as_view(), name="services-quiz"),
     path(
-        "add-multiple-choice/",
-        views.AddMultipleChoiceView.as_view(),
-        name="add-multiple-choice",
+        "submit/",
+        views.SubmitQuestionView.as_view(),
+        name="submit-question",
     ),
     path(
         "multiple-choice-quiz/",

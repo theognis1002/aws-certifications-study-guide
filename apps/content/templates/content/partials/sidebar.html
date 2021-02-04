@@ -25,6 +25,9 @@
         <li {% if active_tab == "flash-cards" %}class="active"{% endif %}>
             <a href="{% url 'flash-cards' %}"><span class="fa fa-bolt mr-4"></span> Flash Cards</a>
         </li>
+        <li {% if active_tab == "submit-question" %}class="active"{% endif %}>
+            <a href="{% url 'submit-question' %}"><span class="fa fa-paper-plane mr-3"></span> Submit Question</a>
+        </li>
         <li {% if active_tab == "resources" %}class="active"{% endif %}>
             <a href="{% url 'resources' %}"><span class="fa fa-book mr-3"></span> External Resources</a>
         </li>

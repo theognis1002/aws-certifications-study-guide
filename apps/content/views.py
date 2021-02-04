@@ -7,7 +7,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, RedirectView, TemplateView
 
-from .forms import AddMultipleChoiceForm, AddServiceForm
+from .forms import AddServiceForm, SubmitQuestionForm
+from .mixins import LoginMixin
 from .models import MultipleChoiceQuestion, Service
 from .utils import clean_text
 
@@ -72,18 +73,19 @@ class ServicesQuiz(ListView):
         return queryset
 
 
-class AddMultipleChoiceView(CreateView):
+class SubmitQuestionView(LoginMixin, CreateView):
     model = MultipleChoiceQuestion
-    template_name = "content/multiple_choice_form.html"
-    form_class = AddMultipleChoiceForm
-    success_url = reverse_lazy("add-multiple-choice")
+    template_name = "content/submit_question_form.html"
+    form_class = SubmitQuestionForm
+    success_url = reverse_lazy("submit-question")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["active_tab"] = "add-multiple-choice"
+        context["active_tab"] = "submit-question"
         return context
 
     def form_valid(self, form):
+        cert_type = form.cleaned_data["cert_type"]
         choice1 = form.cleaned_data["choice1"]
         choice2 = form.cleaned_data["choice2"]
         choice3 = form.cleaned_data["choice3"]
@@ -93,7 +95,7 @@ class AddMultipleChoiceView(CreateView):
 
         messages.success(
             self.request,
-            "Multiple choice question added successfully!",
+            "Multiple choice question added successfully! It will be reviewed by an admin before appearing on the site.",
             extra_tags="success",
         )
         return super().form_valid(form)
@@ -222,7 +224,7 @@ class PracticeExamView(ListView):
         if self.request.session.get("end_timer") is None:
             end_timer = (datetime.utcnow() + timedelta(minutes=65)).isoformat()
             self.request.session["end_timer"] = end_timer
-        else: 
+        else:
             end_timer = self.request.session["end_timer"]
         context["end_timer"] = end_timer
         return context

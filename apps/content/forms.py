@@ -1,5 +1,5 @@
 from django import forms
-from .models import QUESTION_TYPE_CHOICES, Service, MultipleChoiceQuestion
+from .models import Service, MultipleChoiceQuestion, CERT_TYPE_CHOICES
 from users.models import Support
 
 
@@ -9,7 +9,8 @@ class AddServiceForm(forms.ModelForm):
         fields = ("service", "description")
 
 
-class AddMultipleChoiceForm(forms.ModelForm):
+class SubmitQuestionForm(forms.ModelForm):
+    cert_type = forms.ChoiceField(label="Certification", choices=CERT_TYPE_CHOICES)
     question = forms.CharField(
         label="Question", widget=forms.Textarea(attrs={"rows": 4, "cols": 20})
     )
@@ -34,7 +35,7 @@ class AddMultipleChoiceForm(forms.ModelForm):
 
     class Meta:
         model = MultipleChoiceQuestion
-        fields = "__all__"
+        exclude = ("approved",)
 
 
 class SupportForm(forms.ModelForm):
