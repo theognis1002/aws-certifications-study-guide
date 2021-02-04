@@ -292,4 +292,3 @@ def test_route(request):
 
 # TODO add admin models - show not-approved questions, etc.
 # TODO add answer text on quiz results
-# TODO link to reference for additional info

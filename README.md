@@ -1,4 +1,4 @@
-# AWS Quizzes
+# AWS Certification Study Guide
 
 -   Internal tool to create quizzes to study for AWS certifications. Not satisfied with available online study materials for this certification, I decided to create this website to allow me to study and gain knowledge at a rapid pace. Questions are dynamic with randomization and different formats which prevent strict memorization.
 
