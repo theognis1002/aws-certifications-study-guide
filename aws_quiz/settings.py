@@ -17,7 +17,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = ["161.35.177.203", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["161.35.177.203", "localhost", "127.0.0.1", "aws-certifications.com"]
 
 
 # Application definition
