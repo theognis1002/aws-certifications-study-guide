@@ -2,11 +2,23 @@
 {% load crispy_forms_tags %}
 
 {% block header %}
-    External Resources
+    Resources
 {% endblock %}
 
 {% block content %}
     <div class="col-md-6 col-sm-6 p-0 m-0">
+
+        <h6 class="text-secondary border-bottom mb-3 pb-1">Official Registration</h6>
+        <ul class="mb-5">
+            <li><a target="_blank" href="https://aws.amazon.com/certification/">AWS Certification Registration</a></li>
+        </ul>
+        
+        <h6 class="text-secondary border-bottom mb-3 pb-1">Official Practice Exams</h6>
+        <ul class="mb-5">
+            <li><a target="_blank" href="https://www.aws.training/certification?banner=exam-prep">PSI Practice Exam</a></li>
+            <li><a target="_blank" href="https://www.aws.training/certification?banner=exam-prep">Pearson VUE Practice Exam</a></li>
+        </ul>
+
         <h6 class="text-secondary border-bottom mb-3 pb-1">Reading Materials</h6>
         <ul class="mb-5">
             <li><a target="_blank" href="https://d1.awsstatic.com/training-and-certification/docs-cloud-practitioner/AWS-Certified-Cloud-Practitioner_Exam-Guide.pdf">AWS Cloud Practitioner Exam Guide</a></li>
@@ -15,11 +27,6 @@
             <li><a target="_blank" href="https://aws.amazon.com/compliance/shared-responsibility-model/">AWS Shared Responsibility Model</a></li>
             <li><a target="_blank" href="https://d1.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf">AWS Cloud Best Practices</a></li>
         </ul>
-
-        <h6 class="text-secondary border-bottom mb-3 pb-1">Official Practice Exams</h6>
-        <ul class="mb-5">
-            <li><a target="_blank" href="https://www.aws.training/certification?banner=exam-prep">PSI Practice Exam</a></li>
-            <li><a target="_blank" href="https://www.aws.training/certification?banner=exam-prep">Pearson VUE Practice Exam</a></li>
-        </ul>
     </div>
+
 {% endblock %}

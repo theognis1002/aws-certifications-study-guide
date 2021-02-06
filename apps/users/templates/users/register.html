@@ -17,12 +17,12 @@ Register
         </div>
     </form>
     <div class="border-top pt-3">
-        <small class="text-muted">
-            Already have an Account? <a class="ml-2 text-muted" href="{% url "login" %}">Login Now</a>
+        <small>
+            Already have an Account? <a class="ml-2" href="{% url "login" %}">Login Now</a>
         </small>
         <br>
         <small class="text-muted">
-            {% comment %} <a class="ml-2 text-muted" href="{% url 'password_reset' %}">Forgot your Password?</a> {% endcomment %}
+            <a href="{% url 'password_reset' %}">Forgot Password?</a>
         </small>
     </div>
 </div>

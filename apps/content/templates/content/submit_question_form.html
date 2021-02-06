@@ -6,9 +6,13 @@
 {% endblock %}
 
 {% block content %}
+    <div class="alert alert-info">
+        The majority of questions on this website are user submitted. We thank you in advance for contributing to this open source project and helping others in their certification studies. An administrator will review the questions before they are live on the site.
+    </div>
+
     <form action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-primary mt-2 mb-2">Add Question</button>
+        <button type="submit" class="btn btn-primary mt-2 mb-2">Submit</button>
     </form>
 {% endblock %}

@@ -1,5 +1,6 @@
+from captcha.fields import ReCaptchaField
 from django import forms
-from django.contrib.auth import password_validation
+from django.contrib.auth import authenticate, login, password_validation
 from django.contrib.auth.forms import (
     AuthenticationForm,
     UserCreationForm,
@@ -8,8 +9,6 @@ from django.contrib.auth.forms import (
 from django.core.exceptions import ValidationError
 
 from .models import Support, User
-
-from django.contrib.auth import authenticate, login
 
 
 class LoginForm(AuthenticationForm):
@@ -41,6 +40,7 @@ class LoginForm(AuthenticationForm):
             }
         ),
     )
+    captcha = ReCaptchaField(label="")
 
     def get_invalid_login_error(self):
         return ValidationError(
@@ -84,6 +84,7 @@ class RegisterForm(UserCreationForm):
         strip=False,
         help_text="Enter the same password as before, for verification.",
     )
+    captcha = ReCaptchaField(label="")
 
     class Meta:
         model = User
@@ -110,6 +111,7 @@ class UserAccountForm(forms.Form):
     )
     password = forms.CharField(widget=forms.PasswordInput, required=False)
     password1 = forms.CharField(widget=forms.PasswordInput, required=False)
+    captcha = ReCaptchaField(label="")
 
     def clean(self):
         cleaned_data = super().clean()
@@ -127,9 +129,10 @@ class UserAccountForm(forms.Form):
 class SupportForm(forms.ModelForm):
     subject = forms.CharField(required=False)
     body = forms.CharField(widget=forms.Textarea(attrs={"rows": 5, "cols": 20}))
+    captcha = ReCaptchaField(label="")
 
     class Meta:
         model = Support
         fields = "__all__"
 
-    field_order = ["contact", "subject", "body"]
+    field_order = ["contact", "subject", "body", "captcha"]
