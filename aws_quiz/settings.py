@@ -17,7 +17,13 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = ["161.35.177.203", "localhost", "127.0.0.1", "aws-certifications.com", "www.aws-certifications.com"]
+ALLOWED_HOSTS = [
+    "161.35.177.203",
+    "localhost",
+    "127.0.0.1",
+    "aws-certifications.com",
+    "www.aws-certifications.com",
+]
 
 
 # Application definition
@@ -80,6 +86,12 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "cache_table",
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 

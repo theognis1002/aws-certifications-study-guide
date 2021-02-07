@@ -1,4 +1,5 @@
 import requests
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 
 
@@ -12,10 +13,20 @@ def clean_text(text):
 
 
 def detect_profanity(user_text):
-    """returns True if profanity detected in user submitted string"""
-    curse_words = requests.get(
-        "https://raw.githubusercontent.com/RobertJGabriel/Google-profanity-words/master/list.txt"
-    ).text.splitlines()
+    """
+    - returns True if profanity detected in user submitted string
+    - profanity list is cached for 24 hrs
+    """
+    cached_profanity_list = cache.get("profanity_list")
+    if cached_profanity_list:
+        # using cache
+        curse_words = cached_profanity_list
+    else:
+        # setting cache
+        curse_words = requests.get(
+            "https://raw.githubusercontent.com/RobertJGabriel/Google-profanity-words/master/list.txt"
+        ).text.splitlines()
+        cache.set("profanity_list", curse_words, 60 * 60 * 24)
 
     user_text = "".join(letter.lower() for letter in user_text if letter.isalnum())
     contains_profanity = any(
