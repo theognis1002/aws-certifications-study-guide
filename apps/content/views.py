@@ -73,7 +73,7 @@ class ServicesQuiz(ListView):
         return queryset
 
 
-class SubmitQuestionView(LoginMixin, CreateView):
+class SubmitQuestionView(CreateView):
     model = MultipleChoiceQuestion
     template_name = "content/submit_question_form.html"
     form_class = SubmitQuestionForm

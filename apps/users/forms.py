@@ -1,4 +1,5 @@
 from captcha.fields import ReCaptchaField
+from content.utils import ProfanityFilter
 from django import forms
 from django.contrib.auth import authenticate, login, password_validation
 from django.contrib.auth.forms import (
@@ -126,7 +127,7 @@ class UserAccountForm(forms.Form):
         return cleaned_data
 
 
-class SupportForm(forms.ModelForm):
+class SupportForm(ProfanityFilter, forms.ModelForm):
     subject = forms.CharField(required=False)
     body = forms.CharField(widget=forms.Textarea(attrs={"rows": 5, "cols": 20}))
     captcha = ReCaptchaField(label="")
@@ -135,4 +136,5 @@ class SupportForm(forms.ModelForm):
         model = Support
         fields = "__all__"
 
+    user_text_fields = ["contact", "subject", "body"]
     field_order = ["contact", "subject", "body", "captcha"]
