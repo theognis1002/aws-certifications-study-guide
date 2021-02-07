@@ -25,6 +25,7 @@ body {
 	margin-top: -10px;
 }
 
+/* FLASH CARDS */
 .flip-card {
 	background-color: transparent;
 	height: 275px;
@@ -183,4 +184,9 @@ body {
 	padding: 10px;
 	cursor: initial !important;
 	z-index: 999;
+}
+
+/* FORMS */
+textarea::placeholder {
+	font-size: 0.85rem;
 }

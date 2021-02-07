@@ -32,9 +32,6 @@
         <li {% if active_tab == "resources" %}class="active"{% endif %}>
             <a href="{% url 'resources' %}"><span class="fa fa-book mr-3"></span> Resources</a>
         </li>
-        <li {% if active_tab == "support" %}class="active"{% endif %}>
-            <a href="{% url 'support' %}"><span class="fa fa-support mr-3"></span> Support</a>
-        </li>
         {% if user.is_authenticated %}
             <li>
                 <a href="{% url 'logout' %}"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>

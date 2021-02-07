@@ -128,8 +128,19 @@ class UserAccountForm(forms.Form):
 
 
 class SupportForm(ProfanityFilter, forms.ModelForm):
-    subject = forms.CharField(required=False)
-    body = forms.CharField(widget=forms.Textarea(attrs={"rows": 5, "cols": 20}))
+    contact = forms.CharField(
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Contact"}),
+    )
+    subject = forms.CharField(
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Subject"}),
+        required=False,
+    )
+    body = forms.CharField(
+        label="",
+        widget=forms.Textarea(attrs={"rows": 5, "cols": 20, "placeholder": "Body"}),
+    )
     captcha = ReCaptchaField(label="")
 
     class Meta:

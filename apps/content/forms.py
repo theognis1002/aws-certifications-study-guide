@@ -4,6 +4,13 @@ from django import forms
 from .models import CERT_TYPE_CHOICES, MultipleChoiceQuestion, Service
 from .utils import ProfanityFilter, detect_profanity
 
+ANSWER_CHOICES = [
+    ("A", "Choice#1"),
+    ("B", "Choice#2"),
+    ("C", "Choice#3"),
+    ("D", "Choice#4"),
+]
+
 
 class AddServiceForm(ProfanityFilter, forms.ModelForm):
     user_text_fields = ["service", "description"]
@@ -14,29 +21,25 @@ class AddServiceForm(ProfanityFilter, forms.ModelForm):
 
 
 class SubmitQuestionForm(ProfanityFilter, forms.ModelForm):
-    cert_type = forms.ChoiceField(label="Certification", choices=CERT_TYPE_CHOICES)
+    cert_type = forms.ChoiceField(label="Certification Type", choices=CERT_TYPE_CHOICES)
     question = forms.CharField(
         label="Question",
         widget=forms.Textarea(attrs={"rows": 4, "cols": 20}),
     )
-    choice1 = forms.CharField(
-        label="Choice #1",
-        widget=forms.Textarea(attrs={"rows": 1, "cols": 20}),
-    )
-    choice2 = forms.CharField(
-        label="Choice #2",
-        widget=forms.Textarea(attrs={"rows": 1, "cols": 20}),
-        required=False,
-    )
-    choice3 = forms.CharField(
-        label="Choice #3",
-        widget=forms.Textarea(attrs={"rows": 1, "cols": 20}),
-        required=False,
-    )
-    choice4 = forms.CharField(
-        label="Choice #4",
-        widget=forms.Textarea(attrs={"rows": 1, "cols": 20}),
-        required=False,
+    choice1 = forms.CharField(label="Choice #1")
+    choice2 = forms.CharField(label="Choice #2")
+    choice3 = forms.CharField(label="Choice #3")
+    choice4 = forms.CharField(label="Choice #4")
+    answers = forms.ChoiceField(label="Correct Answer", choices=ANSWER_CHOICES)
+    reference = forms.CharField(
+        label="Reference(s)",
+        widget=forms.Textarea(
+            attrs={
+                "rows": 4,
+                "cols": 20,
+                "placeholder": "Links to additional resources and/or reading materials",
+            }
+        ),
     )
     captcha = ReCaptchaField(label="")
 
