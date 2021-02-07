@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
-from django.shortcuts import HttpResponseRedirect, redirect
+from django.shortcuts import HttpResponseRedirect, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView
 
@@ -94,3 +94,15 @@ class SupportView(CreateView):
             extra_tags="success",
         )
         return super().form_valid(form)
+
+
+def error403(request, *args, **kwargs):
+    return render(request, "content/errors/403.html")
+
+
+def error404(request, *args, **kwargs):
+    return render(request, "content/errors/404.html")
+
+
+def error500(request, *args, **kwargs):
+    return render(request, "content/errors/500.html")

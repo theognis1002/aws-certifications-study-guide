@@ -8,7 +8,8 @@
         <a href="{% url 'home' %}">
         <div class="user-logo">
             <div class="img" style="background-image: url({% static 'content/images/aws.png' %});"></div>
-            <h3>AWS Study Guide</h3>
+            <h3>AWS Certifications</h3>
+            <h3 class="mt-neg">Study Guide</h3>
         </div>
         </a>
     </div>
@@ -16,14 +17,14 @@
         <li {% if active_tab == "home" %}class="active"{% endif %}>
             <a href="{% url 'home' %}"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
+        <li {% if active_tab == "flash-cards" %}class="active"{% endif %}>
+            <a href="{% url 'flash-cards' %}"><span class="fa fa-bolt mr-4"></span> Flash Cards</a>
+        </li>
         <li {% if active_tab == "quiz-list" %}class="active"{% endif %}>
             <a href="{% url 'quiz-list' %}"><span class="fa fa-question-circle mr-3"></span> Practice Quizzes</a>
         </li>
         <li {% if active_tab == "practice-exam" %}class="active"{% endif %}>
             <a href="{% url 'practice-exam-start' %}"><span class="fa fa-edit mr-3"></span> Practice Exams</a>
-        </li>
-        <li {% if active_tab == "flash-cards" %}class="active"{% endif %}>
-            <a href="{% url 'flash-cards' %}"><span class="fa fa-bolt mr-4"></span> Flash Cards</a>
         </li>
         <li {% if active_tab == "submit-question" %}class="active"{% endif %}>
             <a href="{% url 'submit-question' %}"><span class="fa fa-paper-plane mr-3"></span> Submit Question</a>

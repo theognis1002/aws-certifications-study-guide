@@ -291,4 +291,8 @@ def test_route(request):
 
 
 # TODO add admin models - show not-approved questions, etc.
-# TODO add answer text on quiz results
+# TODO change dns to cloudflare
+# TODO add ratelimiting
+# TODO custom error pages
+# TODO add social media
+# TODO add stripe integration or donation page (?)
