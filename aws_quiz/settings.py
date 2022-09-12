@@ -77,12 +77,12 @@ WSGI_APPLICATION = "aws_quiz.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql_psycopg2"),
         "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": "161.35.177.203",
-        "PORT": 5432,
+        # "USER": config("DB_USER"),
+        # "PASSWORD": config("DB_PASSWORD"),
+        # "HOST": config("DB_HOST"),
+        # "PORT": config("DB_PORT", cast=bool, default=5432),
     }
 }
 
@@ -141,12 +141,12 @@ MEDIA_URL = "/media/"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY")
-RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY")
+RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY", default="")
+RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY", default="")
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config("EMAIL_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
+EMAIL_HOST_USER = config("EMAIL_USER", "")
+EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD", "")

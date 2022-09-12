@@ -41,3 +41,9 @@ Additional quizzes and study materials will be added in the future.
 1. `python manage.py migrate`
 1. `python manage.py createsuperuser`
 1. `python manage.py runserver`
+
+
+## TODO
+
+1. add initial seed data
+1. dockerize app
