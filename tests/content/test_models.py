@@ -1,8 +1,9 @@
 import pytest
 from django.apps import apps
 
-Service = apps.get_model("content", "Service")
 MultipleChoiceQuestion = apps.get_model("content", "MultipleChoiceQuestion")
+Service = apps.get_model("content", "Service")
+
 
 pytestmark = pytest.mark.django_db
 
