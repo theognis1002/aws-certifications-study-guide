@@ -1,6 +1,5 @@
 from django.db import models
 
-
 CERT_TYPE_CHOICES = [
     ("aws_cloud_practitioner", "AWS Cloud Practitioner"),
     ("aws_developer", "AWS Certified Developer"),
