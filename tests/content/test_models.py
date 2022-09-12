@@ -1,13 +1,16 @@
 import pytest
 
-from apps.users.models import MultipleChoiceQuestion, Service
+from django.apps import apps
+
+Service = apps.get_model("content", "Service")
+MultipleChoiceQuestion = apps.get_model("content", "MultipleChoiceQuestion")
 
 pytestmark = pytest.mark.django_db
 
 
 def test_service_str():
     service = Service.objects.create(
-        name="Lambda", description="Serverless cloud function"
+        service="Lambda", description="Serverless cloud function"
     )
     assert str(service) == "Lambda"
 
