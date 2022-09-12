@@ -15,8 +15,7 @@ from .models import Support, User
 class LoginForm(AuthenticationForm):
 
     error_messages = {
-        "invalid_login": "Please enter a correct email and password. Note that both "
-        "fields may be case-sensitive.",
+        "invalid_login": "Please enter a correct email and password. Note that both " "fields may be case-sensitive.",
         "inactive": "This account is inactive.",
     }
 
@@ -95,9 +94,7 @@ class RegisterForm(UserCreationForm):
         data = self.cleaned_data["email"]
         email = User.objects.filter(email__iexact=data)
         if email.exists():
-            raise ValidationError(
-                "Email address is already associated with an existing account."
-            )
+            raise ValidationError("Email address is already associated with an existing account.")
         return data
 
 
@@ -119,11 +116,7 @@ class UserAccountForm(forms.Form):
         password = cleaned_data.get("password")
         password1 = cleaned_data.get("password1")
         if password != password1:
-            raise ValidationError(
-                {
-                    "password": "Passwords do not match. Please double check and try again."
-                }
-            )
+            raise ValidationError({"password": "Passwords do not match. Please double check and try again."})
         return cleaned_data
 
 

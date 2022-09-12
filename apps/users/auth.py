@@ -8,9 +8,7 @@ from .models import User
 class EmailBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:  # to allow authentication through phone number or any other field, modify the below statement
-            user = UserModel.objects.get(
-                Q(username__iexact=username) | Q(email__iexact=username)
-            )
+            user = UserModel.objects.get(Q(username__iexact=username) | Q(email__iexact=username))
         except UserModel.DoesNotExist:
             UserModel().set_password(password)
         except MultipleObjectsReturned:

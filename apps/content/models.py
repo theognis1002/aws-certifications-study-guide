@@ -16,9 +16,7 @@ class Service(models.Model):
 
 
 class MultipleChoiceQuestion(models.Model):
-    cert_type = models.CharField(
-        max_length=255, choices=CERT_TYPE_CHOICES, default=CERT_TYPE_CHOICES[0][0]
-    )
+    cert_type = models.CharField(max_length=255, choices=CERT_TYPE_CHOICES, default=CERT_TYPE_CHOICES[0][0])
     question = models.TextField()
     choice1 = models.TextField(blank=True, null=True)
     choice2 = models.TextField(blank=True, null=True)

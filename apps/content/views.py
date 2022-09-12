@@ -48,9 +48,7 @@ class AddServiceView(CreateView):
 
         description = clean_text(description)
 
-        messages.success(
-            self.request, "New AWS service added successfully!", extra_tags="success"
-        )
+        messages.success(self.request, "New AWS service added successfully!", extra_tags="success")
         return super().form_valid(form)
 
 
@@ -116,16 +114,10 @@ class MultipleChoiceQuiz(ListView):
         if self.request.session.get("questions"):
             queryset = self.request.session["questions"]
         else:
-            queryset = list(
-                MultipleChoiceQuestion.objects.filter(approved=True)
-                .values()
-                .order_by("?")
-            )
+            queryset = list(MultipleChoiceQuestion.objects.filter(approved=True).values().order_by("?"))
             self.request.session["questions"] = queryset
 
-        self.request.session["answer_key"] = [
-            question["answers"] for question in queryset
-        ]
+        self.request.session["answer_key"] = [question["answers"] for question in queryset]
         return queryset
 
 
@@ -182,9 +174,7 @@ class MultipleChoiceQuizResults(TemplateView):
 
         incorrect_answers = []
         num_correct = 0
-        for idx, (correct_answer, user_answer, question) in enumerate(
-            zip(answer_key, user_answers.values(), questions), 1
-        ):
+        for idx, (correct_answer, user_answer, question) in enumerate(zip(answer_key, user_answers.values(), questions), 1):
             if correct_answer == user_answer:
                 num_correct += 1
             else:
@@ -233,16 +223,10 @@ class PracticeExamView(ListView):
         if self.request.session.get("questions"):
             queryset = self.request.session["questions"]
         else:
-            queryset = list(
-                MultipleChoiceQuestion.objects.filter(approved=True)
-                .values()
-                .order_by("?")[:65]
-            )
+            queryset = list(MultipleChoiceQuestion.objects.filter(approved=True).values().order_by("?")[:65])
             self.request.session["questions"] = queryset
 
-        self.request.session["answer_key"] = [
-            question["answers"] for question in queryset
-        ]
+        self.request.session["answer_key"] = [question["answers"] for question in queryset]
         return queryset
 
 
