@@ -2,7 +2,7 @@ from captcha.fields import ReCaptchaField
 from django import forms
 
 from .models import CERT_TYPE_CHOICES, MultipleChoiceQuestion, Service
-from .utils import ProfanityFilter, detect_profanity
+from .utils import ProfanityFilter
 
 ANSWER_CHOICES = [
     ("A", "Choice#1"),

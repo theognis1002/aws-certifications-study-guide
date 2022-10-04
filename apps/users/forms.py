@@ -1,12 +1,8 @@
 from captcha.fields import ReCaptchaField
 from content.utils import ProfanityFilter
 from django import forms
-from django.contrib.auth import authenticate, login, password_validation
-from django.contrib.auth.forms import (
-    AuthenticationForm,
-    UserCreationForm,
-    UsernameField,
-)
+from django.contrib.auth import password_validation
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.exceptions import ValidationError
 
 from .models import Support, User
