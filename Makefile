@@ -20,3 +20,4 @@ m: migrate
 bash:
 	docker compose run web bash
 b: bash
+
