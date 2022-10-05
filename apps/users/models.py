@@ -11,7 +11,7 @@ class SubscriptionPlan(models.Model):
 
 
 class User(AbstractUser):
-    subscription = models.ForeignKey(SubscriptionPlan, on_delete=models.DO_NOTHING, default=1)
+    subscription = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.username

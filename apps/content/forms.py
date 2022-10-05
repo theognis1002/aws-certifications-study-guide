@@ -1,4 +1,4 @@
-from captcha.fields import ReCaptchaField
+# from captcha.fields import ReCaptchaField
 from django import forms
 
 from .models import CERT_TYPE_CHOICES, MultipleChoiceQuestion, Service
@@ -41,7 +41,7 @@ class SubmitQuestionForm(ProfanityFilter, forms.ModelForm):
             }
         ),
     )
-    captcha = ReCaptchaField(label="")
+    # captcha = ReCaptchaField(label="")
 
     user_text_fields = [
         "question",

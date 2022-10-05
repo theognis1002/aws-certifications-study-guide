@@ -1,4 +1,4 @@
-from captcha.fields import ReCaptchaField
+# from captcha.fields import ReCaptchaField
 from content.utils import ProfanityFilter
 from django import forms
 from django.contrib.auth import password_validation
@@ -36,7 +36,7 @@ class LoginForm(AuthenticationForm):
             }
         ),
     )
-    captcha = ReCaptchaField(label="")
+    # captcha = ReCaptchaField(label="")
 
     def get_invalid_login_error(self):
         return ValidationError(
@@ -80,7 +80,7 @@ class RegisterForm(UserCreationForm):
         strip=False,
         help_text="Enter the same password as before, for verification.",
     )
-    captcha = ReCaptchaField(label="")
+    # captcha = ReCaptchaField(label="")
 
     class Meta:
         model = User
@@ -105,7 +105,7 @@ class UserAccountForm(forms.Form):
     )
     password = forms.CharField(widget=forms.PasswordInput, required=False)
     password1 = forms.CharField(widget=forms.PasswordInput, required=False)
-    captcha = ReCaptchaField(label="")
+    # captcha = ReCaptchaField(label="")
 
     def clean(self):
         cleaned_data = super().clean()
@@ -130,7 +130,7 @@ class SupportForm(ProfanityFilter, forms.ModelForm):
         label="",
         widget=forms.Textarea(attrs={"rows": 5, "cols": 20, "placeholder": "Body"}),
     )
-    captcha = ReCaptchaField(label="")
+    # captcha = ReCaptchaField(label="")
 
     class Meta:
         model = Support

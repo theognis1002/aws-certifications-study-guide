@@ -21,6 +21,7 @@ ALLOWED_HOSTS = [
     "161.35.177.203",
     "localhost",
     "127.0.0.1",
+    "0.0.0.0",
     "aws-certifications.com",
     "www.aws-certifications.com",
 ]
@@ -79,10 +80,10 @@ DATABASES = {
     "default": {
         "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql_psycopg2"),
         "NAME": config("DB_NAME"),
-        # "USER": config("DB_USER"),
-        # "PASSWORD": config("DB_PASSWORD"),
-        # "HOST": config("DB_HOST"),
-        # "PORT": config("DB_PORT", cast=bool, default=5432),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
+        "PORT": config("DB_PORT", cast=int, default=5432),
     }
 }
 
@@ -127,6 +128,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField" 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
