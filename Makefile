@@ -1,9 +1,23 @@
-make-migrations mm:
-	python manage.py makemigrations
+build:
+	docker compose up --build
 
+run:
+	docker compose up
 
-migrate m:
-	python manage.py migrate
+destroy:
+	docker compose down -v
 
-run r:
-	python manage.py runserver
+rebuild: destroy build
+
+makemigrations:
+	docker compose run web python manage.py makemigrations
+mm: makemigrations
+
+migrate:
+	docker compose run web python manage.py migrate
+m: migrate
+
+bash:
+	docker compose run web bash
+b: bash
+

@@ -3,12 +3,11 @@ from datetime import datetime, timedelta
 
 from django.contrib import messages
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, RedirectView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView
 
 from .forms import AddServiceForm, SubmitQuestionForm
-from .mixins import LoginMixin
 from .models import MultipleChoiceQuestion, Service
 from .utils import clean_text
 
